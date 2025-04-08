@@ -1,0 +1,59 @@
+#include <iostream>
+using namespace std;
+
+int binarySearchIterative(int arr[], int size, int target) {
+    int left = 0, right = size - 1;
+    
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        
+        if (arr[mid] == target) {
+            return mid; 
+        } else if (arr[mid] < target) {
+            left = mid + 1; 
+        } else {
+            right = mid - 1; 
+        }
+    }
+    return -1; 
+}
+
+// Recursive Binary Search Function
+int binarySearchRecursive(int arr[], int left, int right, int target) {
+    if (left <= right) {
+        int mid = left + (right - left) / 2; 
+        
+        if (arr[mid] == target) {
+            return mid; 
+        } else if (arr[mid] < target) {
+            return binarySearchRecursive(arr, mid + 1, right, target);
+        } else {
+            return binarySearchRecursive(arr, left, mid - 1, target); 
+        }
+    }
+    return -1; 
+}
+
+int main() {
+    
+    int arr[] = {2, 4, 6, 8, 10, 12, 14, 16, 18, 20};
+    int size = sizeof(arr) / sizeof(arr[0]);
+
+    int target = 14; 
+
+    int resultIterative = binarySearchIterative(arr, size, target);
+    if (resultIterative != -1) {
+        cout << "Iterative: Element " << target << " found at index " << resultIterative << endl;
+    } else {
+        cout << "Iterative: Element " << target << " not found!" << endl;
+    }
+
+    int resultRecursive = binarySearchRecursive(arr, 0, size - 1, target);
+    if (resultRecursive != -1) {
+        cout << "Recursive: Element " << target << " found at index " << resultRecursive << endl;
+    } else {
+        cout << "Recursive: Element " << target << " not found!" << endl;
+    }
+
+    return 0;
+}
